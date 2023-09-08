@@ -1,0 +1,68 @@
+{% extends 'meetup/partials/base.html' %}
+{% load static %}
+{% block title %}Events Page{% endblock title %}
+
+{% block banner %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-2 text-white mb-4 animated slideInDown">Events</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item text-primary" aria-current="page">Events</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+{% endblock banner %}
+
+
+{% block content %}
+
+<!-- upcoming_meetup Start -->
+<div class="container-xxl pt-5">
+	<div class="container">
+		<div
+			class="text-center text-md-start pb-5 pb-md-0 wow fadeInUp"
+			data-wow-delay="0.1s"
+			style="max-width: auto">
+			<p class="fs-5 fw-medium text-primary">Events</p>
+            <h6 class="display-6 mb-3">See Events</h6>
+		</div>
+		<hr />
+		<div class="row wow fadeInUp">
+			{% for meetup in meetups%}
+			<div class="col-sm-6">
+				<div class="card mb-3">
+					<div class="row g-0">
+						<div class="col-sm-4 align-items-center">
+							<div class="m-5 mb-0 mx-4">
+								<img src="{{meetup.image.url}}" alt="{{meetup.title}}" class="rounded img-fluid img-thumbnail" style="width:150px; height:100px;">
+							</div>
+						</div>
+						<div class="col-md-8 align-items-center">
+							<div class="card-body">
+								<h5 class="card-title">{{meetup.title}}</h5>
+								<p class=" card-text text-secondary small">{{meetup.from_date}} - {{meetup.to_date}}</p>
+								<span>{{meetup.description|truncatewords:8}}
+									<p>
+									    <a href="{% url 'meetup_detail' meetup.slug %}" class="text-primary text-decoration-none">Read more...</a>
+									</p>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+	    </div>
+	</div>
+</div>
+<!-- upcoming_meetup End -->
+
+
+
+{% endblock content %}

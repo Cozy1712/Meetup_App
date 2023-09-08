@@ -1,0 +1,117 @@
+{% extends 'meetup/partials/base.html' %} 
+{% load static %} 
+{% block title%}User Meetup{% endblock title %} 
+{% block banner %} {% endblock banner %} 
+
+
+{%block content %}
+
+<!-- upcoming_meetup Start -->
+<div class="container-xxl pt-5">
+	<div class="container">
+		<div
+			class="text-center text-md-start pb-5 pb-md-0 wow fadeInUp"
+			data-wow-delay="0.1s"
+			style="max-width: auto">
+			<marquee behavior="" direction="">
+				<h6 class="fs-5 fw-bold mb-3">Welcome, {{request.user.username}} 👋</h6>
+			</marquee>
+			<div class="d-flex">
+				<a
+					class="fs-6 fw-medium text-primary-subtle d-block btn btn-outline-primary"
+					href="{% url 'meetup_create' %}">
+					Create Meetup</a
+				>
+				<p  class="btn btn-info position-relative ms-auto">
+					meetups
+					<span
+						class="position-absolute top-0 start-100 translate-middle badge border rounded-pill bg-success">
+						{{counts}}
+					</span>
+				</p>
+			</div>
+		</div>
+		<hr />
+		<div class="row wow fadeInUp">
+			{% for meetup in meetups%}
+			<div class="col-sm-6">
+				<div class="card mb-3">
+					<div class="row g-0">
+						<div class="col-sm-4 align-items-center">
+							<div class="m-5 mb-0 mx-4">
+								<img src="{{meetup.image.url}}" alt="{{meetup.title}}" class="rounded img-fluid img-thumbnail" style="width:150px; height:100px;">
+							</div>
+						</div>
+						<div class="col-md-8 align-items-center">
+							<div class="card-body">
+								<h5 class="card-title">{{meetup.title}}</h5>
+								<p class=" card-text text-secondary small">{{meetup.from_date}} - {{meetup.to_date}}</p>
+								<span>{{meetup.description|truncatewords:8}}
+									<p>
+									    <a href="{% url 'meetup_detail' meetup.slug %}" class="text-primary text-decoration-none">Read more...</a>
+										<a href="{% url 'add-speaker' meetup.id %}" class="text-decoration-none my-2">Add speaker</a>
+									</p>
+								</span>
+								<div class="mb-4">
+									<a href="{% url 'meetup_update' meetup.id %}" class="text-decoration-none btn btn-info m-2  float-end">
+										<i class="fa fa-pen-to-square"></i>
+									</a>
+									<button
+										type="button"
+										class="btn btn-danger float-end m-2"
+										data-bs-toggle="modal"
+										data-bs-target="#myMessage{{meetup_delete.meetup.id}}">
+										<i class="fa fa-trash"></i>
+									</button>
+							    </div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+	    </div>
+	</div>
+</div>
+<!-- upcoming_meetup End -->
+
+<!-- Modal -->
+<div
+	class="modal fade"
+	id="myMessage{{meetup.id}}"
+	tabindex="-1"
+	aria-labelledby="myMessageLabel{{meetup.id}}"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-center">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="myMessageLabel{{meetup.id}}">
+					{{meetup.id}}
+				</h1>
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<form action="" method="POST">
+				{% csrf_token %}
+				<div class="modal-body">
+					Are you sure you want to delete {{meetup.id}}
+				</div>
+				<div class="modal-footer">
+					<button
+						type="button"
+						class="btn btn-secondary"
+						data-bs-dismiss="modal">
+						Close
+					</button>
+					<button type="submit" class="btn btn-danger">Delete</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Modal End -->
+
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends 'meetup/partials/base.html' %}
+{% block title %}Login Page{% endblock title %}
+{% block banner %}{% endblock banner %}
+
+  
+{% block content %}
+    <!-- Login Start -->
+    <div class="container-xxl">
+        <div class="container">
+            <div class="row mt-2 justify-content-center">
+                <div class="col-lg-6 wow fadeInUp shadow bg-primary-subtle rounded p-4" data-wow-delay="0.5s">
+                    <h2 class="mb-4">Sign In to Your Account</h2>
+                    <hr>
+                    <form method="POST" class="row g-3" enctype="multipart/form-data">
+                       {% csrf_token %}
+                       <div class="mb-3 form-floating">
+                        <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Enter your Email" aria-describedby="emailHelp">
+                        <label for="email" class="text-dark">Email address</label>
+                    </div>
+                    <div class="mb-3 form-floating">
+                      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                      <label for="exampleInputPassword1" class="text-dark">Password</label>
+                    </div>
+                        <div class="col-12 text-center">
+                            <button class="btn btn-primary w-100 py-3" type="submit">Sign In <i class="fa-solid fa-right-to-bracket"></i></button>
+                        </div>
+                        <a href="{% url 'password_reset' %}" class="test-decoration-underline-dotted">Forgot your password?</a>
+                        <p class="py-2 text-center">If you don't have an account? <a class='text-decoration-none' href="{% url 'meetup_register' %}">Sign Up</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login end -->
+
+{% endblock content %}
+
+
+

@@ -1,0 +1,127 @@
+{% extends 'meetup/partials/base.html' %}
+{% load static %}
+{% block title %}Event Meetup{% endblock title %}
+
+{% block content %}
+    <!-- Event Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center text-md-start  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="fs-5 fw-medium text-primary">Events</p>
+                <h1 class="display-6 mb-5">See Recent Event</h1>
+            </div>
+            <div class="row g-4">
+                {% for meetup in meetups %}
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="project-item mb-5">
+                        <div class="position-relative">
+                            <img
+                                class="img-fluid"
+                                src="{{meetup.image.url}}"
+                                alt="{{meetup.title}}"
+                                style="width: 100%; height: 300px; object-fit: cover" />
+                            <div class="project-overlay">
+                                <a
+                                    class="btn btn-lg-square btn-light rounded-circle m-1"
+                                    href="{{meetup.image.url}}"
+                                    data-lightbox="project"
+                                    ><i class="fa fa-eye"></i
+                                ></a>
+                                <a
+                                    class="btn btn-lg-square btn-light rounded-circle m-1"
+                                    href="{% url 'meetup_detail' meetup.slug %}"
+                                    ><i class="fa fa-link"></i
+                                ></a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <a class="d-block h5" href="">{{meetup.title}}</a>
+                            <p class="fw-light text-secondary fs-6">{{meetup.from_date}} - {{meetup.meetup_endtime}}</p>
+                            <span>{{meetup.description|truncatewords:8}} <a href="{% url 'meetup_detail' meetup.slug %}" class="text-decoration-none">Read more...</a></span>
+                        </div>
+                    </div>        
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+    <!-- Event End -->
+
+    <!-- upcoming_meetup Start -->
+    <div class="container-xxl pt-5">
+        <div class="container">
+            <div class="text-center text-md-start pb-5 pb-md-0 wow fadeInUp" data-wow-delay="0.1s"
+                style="max-width: 505px;">
+                <p class="fs-5 fw-medium text-primary">Upcoming Events</p>
+                <h1 class="display-6 mb-5">See Our Upcoming Meetups</h1>
+            </div>
+            <div class="owl-carousel project-carousel wow fadeInUp" data-wow-delay="0.1s">
+                {% for meetup in meetups %}
+                {% if meetup.from_date > today %}
+                <div class="project-item mb-5">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="{{meetup.image.url}}" alt="{{meetup.title}}" style="width:100%; height:300px; object-fit:cover">
+                        <div class="project-overlay">
+                            <a class="btn btn-lg-square btn-light rounded-circle m-1" href="img/project-1.jpg"
+                                data-lightbox="project"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-light rounded-circle m-1" href=""><i
+                                    class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <a class="d-block h5" href="">{{meetup.title}}</a>
+                        <p>{{meetup.from_date}},</p>
+                        <span>{{meetup.slug}}</span>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- upcoming_meetup End -->
+ 
+    <!-- Testimonial Start -->
+    <div class="container-xxl pt-5">
+        <div class="container">
+            <div class="text-center text-md-start pb-5 pb-md-0 wow fadeInUp" data-wow-delay="0.1s"
+                style="max-width: 500px;">
+                <p class="fs-5 fw-medium text-primary">Testimonial</p>
+                <h1 class="display-6 mb-5">What Clients Say About Our Services!</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+                <div class="testimonial-item rounded p-4 p-lg-5 mb-5">
+                    <img class="mb-4" src="{% static 'meetup/img/testimonial-1.jpg' %}" alt="">
+                    <p class="mb-4">Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et
+                        sit, sed stet lorem sit clita duo justo</p>
+                    <h5>Client Name</h5>
+                    <span class="text-primary">Profession</span>
+                </div>
+                <div class="testimonial-item rounded p-4 p-lg-5 mb-5">
+                    <img class="mb-4" src="{% static 'meetup/img/testimonial-2.jpg' %}" alt="">
+                    <p class="mb-4">Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et
+                        sit, sed stet lorem sit clita duo justo</p>
+                    <h5>Client Name</h5>
+                    <span class="text-primary">Profession</span>
+                </div>
+                <div class="testimonial-item rounded p-4 p-lg-5 mb-5">
+                    <img class="mb-4" src="{% static 'meetup/img/testimonial-3.jpg' %}" alt="">
+                    <p class="mb-4">Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et
+                        sit, sed stet lorem sit clita duo justo</p>
+                    <h5>Client Name</h5>
+                    <span class="text-primary">Profession</span>
+                </div>
+                <div class="testimonial-item rounded p-4 p-lg-5 mb-5">
+                    <img class="mb-4" src="{% static 'meetup/img/testimonial-4.jpg' %}" alt="">
+                    <p class="mb-4">Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et
+                        sit, sed stet lorem sit clita duo justo</p>
+                    <h5>Client Name</h5>
+                    <span class="text-primary">Profession</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+        
+{% endblock content %}

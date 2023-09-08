@@ -1,0 +1,175 @@
+{% extends 'meetup/partials/base.html' %} 
+{% block title %}Meetup Details Page{%endblock title %} 
+
+{% block banner %}
+<div
+	class="container-fluid page-header py-5 mb-5 wow fadeIn"
+	data-wow-delay="0.1s">
+	<div class="container text-center py-5">
+		<h1 class="display-2 text-white mb-4 animated slideInDown">
+			Meetup Details
+		</h1>
+		<nav aria-label="breadcrumb animated slideInDown">
+			<ol class="breadcrumb justify-content-center mb-0">
+				<li class="breadcrumb-item"><a href="#">Home</a></li>
+				<li class="breadcrumb-item"><a href="#">Events</a></li>
+				<li class="breadcrumb-item text-primary" aria-current="page">
+					Meetup Details
+				</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+{% endblock banner %} 
+
+{% block content %}
+
+<!-- Details Start -->
+<div class="container-xxl py-5">
+	<div class="container">
+		<div class="row g-5">
+			<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+				<p class="fs-5 fw-medium text-primary">{{meetup.title}}</p>
+				<p>{{meetup.description}}</p>
+				<p>{{meetup.from_date}}</p>
+				<p class="mb-4">
+					<img
+						src="{{meetup.image.url}}"
+						alt="{{meetup.title}}"
+						style="width: auto; height: 400px; object-fit: cover"
+						class="img-thumbnail" />
+				</p>
+				<div class="col-lg-6 wow fadeInUp">
+					<h1 class="fs-5 fw-medium text-primary mb-4">Meetup Organizer</h1>
+					<a
+						class="d-inline-flex align-items-center rounded border border-primary"
+						href="mailto:{{meetup.organizer_email}}">
+						<span
+							class="btn-lg-square bg-primary"
+							style="width: 50px; height: 50px;">
+							<i class="fa fa-envelope text-white"></i>
+						</span>
+						<span class="fs-5 fw-medium text-primary-subtle mx-3">{{meetup.organizer_email}}</span>
+					</a>
+				</div>
+			</div>
+
+			<div class="col-lg-6 wow fadeInUp my-5" data-wow-delay="0.5s">
+				<h2 class="mb-4">Join Meetup</h2>
+				<form class="row g-3" method="POST">
+					{% csrf_token %}
+					<div class="col-sm-6">
+						<div class="form-floating">
+							<input
+								type="text"
+								class="form-control"
+								id="name"
+								name="name"
+								placeholder="Your Name" />
+							<label for="name">Your Name</label>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-floating">
+							<input
+								type="email"
+								class="form-control"
+								id="mail"
+								name="email"
+								placeholder="Your Email" />
+							<label for="mail">Your Email</label>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-floating">
+							<input
+								type="text"
+								class="form-control"
+								id="mobile"
+								name="phone"
+								placeholder="Your Mobile" />
+							<label for="mobile">Your Mobile</label>
+						</div>
+					</div>
+					<div class="col-12 text-center">
+						<button class="btn btn-primary w-100 py-3" type="submit">
+							Submit Now
+						</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="my-5">
+                <div class="d-flex">
+                    <p class="fs-5 fw-medium text-primary align-self-center">
+                        Participants
+                    </p>
+                    <span class="barge bg-primary-subtle text-primary ms-auto align-self-center rounded p-1 fs-6">{{count}}</span>
+                </div>
+				<div class="row">
+                    {% for participant in participants%}
+					<div class="col-md-6 my-2">
+						<div class="border-0 bg-body-secondary">
+							<div class=" card d-flex position-relative table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>{{participant.name}}</td>
+                                            <td>{{participant.email}}</td>
+                                            <td>{{participant.phone}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+							</div>
+						</div>
+					</div>
+                    {% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Details Start -->
+
+<!-- Speakers Start -->
+<div class="container-xxl py-5">
+	<div class="container">
+		<div class="wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px">
+			<p class="fs-5 fw-medium text-primary">Speakers</p>
+		</div>
+		<div class="row g-4">
+			{% for speaker in speakers %}
+			<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+				<div class="team-item rounded overflow-hidden pb-4">
+					<img class="img-fluid rounded-pill pt-1 mb-4" src="{{speaker.image.url}}" alt="" style="height:100px; width:100px"/>
+					<h5>{{speaker.name}}</h5>
+					<span class="text-primary">{{speaker.proffession}}</span>
+					<ul class="team-social">
+						<li>
+							<a class="btn btn-square" href="mailto:{{speaker.email}}"><i class="fa fa-envelope"></i></a>
+						</li>
+						<li>
+							<a class="btn btn-square" href=""
+								><i class="fab fa-twitter"></i
+							></a>
+						</li>
+						<li>
+							<a class="btn btn-square" href=""
+								><i class="fab fa-instagram"></i
+							></a>
+						</li>
+						<li>
+							<a class="btn btn-square" href=""
+								><i class="fab fa-linkedin-in"></i
+							></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+<!-- Speakers End -->
+
+{% endblock content %} 

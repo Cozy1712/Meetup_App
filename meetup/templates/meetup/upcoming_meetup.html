@@ -1,0 +1,63 @@
+{% extends 'meetup/partials/base.html' %}
+{% load static %}
+{% block title %}Upcoming Meetup{% endblock title %}
+
+{% block banner %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-2 text-white mb-4 animated slideInDown">Upcoming Meetup</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Events</a></li>
+                    <li class="breadcrumb-item text-primary" aria-current="page">Upcoming Events</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+{% endblock banner %}
+
+
+{% block content %}
+
+    <!-- upcoming_meetup Start -->
+    <div class="container-xxl pt-5">
+        <div class="container">
+            <div class="text-center text-md-start pb-5 pb-md-0 wow fadeInUp" data-wow-delay="0.1s"
+                style="max-width: 500px;">
+                <p class="fs-5 fw-medium text-primary">Upcoming Events</p>
+                <h1 class="display-6 mb-3">See Our Upcoming Meetups</h1>
+            </div>
+            <hr>
+            <div class="owl-carousel project-carousel  wow fadeInUp my-2" data-wow-delay="0.1s" >
+                {% for meetup in meetups %}
+                {% if meetup.from_date > todayDate %}
+                <div class="project-item mb-5">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="{{meetup.image.url}}" alt="" style="width:100%; height:300px; object-fit:cover">
+                        <div class="project-overlay">
+                            <a class="btn btn-lg-square btn-light rounded-circle m-1" href="{{meetup.image.url}}"
+                                data-lightbox="project"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-light rounded-circle m-1" href="{% url 'meetup_detail' meetup.slug %}"><i
+                                    class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <p class="d-block h5 text-decoration-none">{{meetup.title}}</p>
+                        <p class="fw-light text-secondary fs-6">{{meetup.from_date}} - {{meetup.to_date}}</p>
+                        <span>{{meetup.description| truncatewords:8 }} <a href="{% url 'meetup_detail' meetup.slug %}" class="text-decoration-none">Read more...</a></span>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- upcoming_meetup End -->
+
+{% endblock content %}
+
+    

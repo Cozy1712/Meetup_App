@@ -1,0 +1,33 @@
+{% extends 'meetup/partials/base.html' %}
+{% block title %}Registeration Page{% endblock title %}
+{% block banner %}{% endblock banner %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <!-- Register Start -->
+    <div class="container-xxl">
+        <div class="container">
+            <div class="row mt-2 justify-content-center">
+                <div class="col-lg-6 wow fadeInUp shadow bg-primary-subtle rounded p-4" data-wow-delay="0.5s">
+                    <h2 class="mb-4">Registration</h2>
+                    <hr>
+                    <form method="POST" class="row g-3" enctype="multipart/form-data">
+                       
+                       <div class="">
+                          {% csrf_token %}
+                          {{form|crispy}}
+                       </div>
+                        <div class="col-12 text-center">
+                            <button class="btn btn-primary w-100 py-3" type="submit">Register</button>
+                        </div>
+                        <p class="py-2 text-center">Already have an account? <a class='text-decoration-none' href="{% url 'meetup_login' %}">Login</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Register end -->
+
+{% endblock content %}
+
