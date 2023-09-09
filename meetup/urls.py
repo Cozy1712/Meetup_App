@@ -22,8 +22,8 @@ urlpatterns = [
     path('participants/<int:meetupid>', views.participants, name='view-participants'),
     path('meetup-update/<int:pk>',MeetupUpdate.as_view(), name='meetup_update'),
     path('meetup-delete/<int:pk>',MeetupDelete.as_view(), name='meetup_delete'),
-    path('password-reset', PasswordResetView.as_view(template_name='password_reset.html'), name='password_reset'),
-    path('password-reset-confirm/<uidb64>/<token>', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('password-reset-done', PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('password-reset-complete', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('password-reset/', PasswordResetView.as_view(template_name='meetup/password_reset.html'), name='password_reset'),
+    path('password-reset-confirm/<uidb64>/<token>', PasswordResetConfirmView.as_view(template_name='meetup/password_reset_confirm.html'), name='password_reset_confirm'),
+    path('password-reset-done/', PasswordResetDoneView.as_view(template_name='meetup/password_reset_done.html'), name='password_reset_done'),
+    path('password-reset-complete', PasswordResetCompleteView.as_view(template_name='meetup/password_reset_complete.html'), name='password_reset_complete'),
 ]
