@@ -1,14 +1,19 @@
-  <div class="container p-0 position-relative sticky-top">
-    <div class="justify-content-center wow fadeInUp top-0" data-wow-delay="0.5s">
-      {% if messages %}
-      {% for message in messages %}
-        <div class="alert {{ message.tags }} alert-dismissible fade show pt-0 pb-0 d-flex align-self-center" role="alert">
-          <strong>{{message}}</strong>
-          {% comment %} <i class="bi bi-x" data-bs-dismiss="alert" aria-label="Close"></i> {% endcomment %}
-          <button class="btn bi bi-x ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      {% endfor %}
-      {% endif %}
-    </div>
-  </div>
-
+<div
+	x-data="{ show: true }"
+	x-show="show"
+	x-init="setTimeout(() => show = false, 5000)"
+	class="container-sm p-0 position-relative">
+	<div class="justify-content-center wow fadeInUp top-0" data-wow-delay="0.5s">
+		{% if messages %} {% for message in messages %}
+		<div
+			class="alert {{ message.tags }} alert-dismissible fade show pt-0 pb-0 d-flex align-self-center"
+			role="alert">
+			<strong>{{message}}</strong>
+			{% comment %} <button
+				class="btn bi bi-x ms-auto"
+				data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div> {% endcomment %}
+		{% endfor %} {% endif %}
+	</div>
+</div>
