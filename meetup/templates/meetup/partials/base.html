@@ -37,68 +37,73 @@
 </head>
 <body class="bg-body-tertiary">
 
+   <!--header Start-->
   {% include 'meetup/partials/nav.html'%}
-  {% include 'meetup/message.html' %}
-  {%block banner%}
-
-<!-- Carousel Start -->
-  <div class="container-fluid px-0 mb-5">
-    <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="w-100" src="{% static 'meetup/img/carousel-1.jpg'%}" alt="Image">
-                <div class="carousel-caption">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-lg-7 text-start">
-                                <p class="fs-4 text-white animated slideInRight">Welcome to
-                                    <strong>Event Meetup</strong>
-                                </p>
-                                <h1 class="display-1 text-white mb-4 animated slideInRight">Connect with People</h1>
-                                <a href="{% url 'meetup_create'%}"
-                                    class="btn btn-primary rounded-pill py-3 px-5 animated slideInRight">Create An Event</a>
+   <!--header end-->
+   {% include 'meetup/message.html' %}
+   <!--Background start-->
+    {%block banner%}
+    <!-- Carousel Start -->
+    <div class="container-fluid px-0 mb-5">
+        <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="w-100" src="{% static 'meetup/img/carousel-1.jpg'%}" alt="Image">
+                    <div class="carousel-caption">
+                        <div class="container">
+                            <div class="row justify-content-start">
+                                <div class="col-lg-7 text-start">
+                                    <p class="fs-4 text-white animated slideInRight">Welcome to
+                                        <strong>Event Meetup</strong>
+                                    </p>
+                                    <h1 class="display-1 text-white mb-4 animated slideInRight">Connect with People</h1>
+                                    <a href="{% url 'meetup_create'%}"
+                                        class="btn btn-primary rounded-pill py-3 px-5 animated slideInRight">Create An Event</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="w-100" src="{% static 'meetup/img/carousel-2.jpg'%}" alt="Image">
+                    <div class="carousel-caption">
+                        <div class="container">
+                            <div class="row justify-content-end">
+                                <div class="col-lg-7 text-end">
+                                    <p class="fs-4 text-white animated slideInLeft">Welcome to <strong>Event Meetup</strong>
+                                    </p>
+                                    <h1 class="display-1 text-white mb-5 animated slideInLeft">Connect with People</h1>
+                                    <a href="{% url 'meetup_create' %}"
+                                        class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Create An Event</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <img class="w-100" src="{% static 'meetup/img/carousel-2.jpg'%}" alt="Image">
-                <div class="carousel-caption">
-                    <div class="container">
-                        <div class="row justify-content-end">
-                            <div class="col-lg-7 text-end">
-                                <p class="fs-4 text-white animated slideInLeft">Welcome to <strong>Event Meetup</strong>
-                                </p>
-                                <h1 class="display-1 text-white mb-5 animated slideInLeft">Connect with People</h1>
-                                <a href="{% url 'meetup_create' %}"
-                                    class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Create An Event</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
-</div>
-<!-- Carousel End -->
-{%endblock%}
-  {% block content %}
+    <!-- Carousel End -->
+    {%endblock banner%}
+    <!--Background End-->
+
+    <!--Content Start-->
+    {% block content %} 
   
-  
-  {% endblock content %}
+    {% endblock content %}
+    <!--Content Start-->
 
   
 
-
+  <!--footer-->
   {% include 'meetup/partials/footer.html' %}
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>

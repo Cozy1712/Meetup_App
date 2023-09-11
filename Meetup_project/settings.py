@@ -13,11 +13,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
-import environ
+from dotenv import load_dotenv
+
 
 # Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
+load_dotenv()
 
 
 MESSAGE_TAGS = {
@@ -36,7 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-_*uw=vo=jt260658cqbt*yzi5&)0d_+(#g=xwa^i_m%&^0_(p&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -171,7 +171,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'djangocozy@gmail.com'
-EMAIL_HOST_PASSWORD = 'ujecsbcyodvpewxa'
+EMAIL_HOST_PASSWORD = 'thrxbywbdvnabqzx'
 EMAIL_PORT = 587
 
 

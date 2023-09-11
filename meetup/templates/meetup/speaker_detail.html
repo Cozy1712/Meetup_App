@@ -23,7 +23,7 @@
 						class="mb-2"
 						src="{{speaker.image.url}}"
 						alt="{{speaker.name}}" />
-					<h5 class="px-4 my-4">{{speaker.name}}</h5>
+					<h5 class="px-4 my-4">{{speaker.name}} <p class="fs-6 my-2">Proffession <span class="text-info px-2">{{speaker.proffession}}</span></p></h5> 
 				</div>
 				<div class="px-3">
 					<a
@@ -37,6 +37,8 @@
 						{{speaker.phone}}</a
 					>
 					<p class="">{{speaker.bio}}</p>
+					<a href="{% url 'update_speaker' speaker.id %}" class="text-dark"><i class="fa fa-pen-to-square"></i></a>
+					<a href="{% url 'delete_speaker' speaker.id %}" class="text-danger"><i class="fa fa-trash"></i></a>
 				</div>
 			</div>
 			{% endfor %}

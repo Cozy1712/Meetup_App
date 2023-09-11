@@ -1,5 +1,8 @@
-{% extends 'meetup/partials/base.html' %} {% block title %}Meetup Details Page{%
-endblock title %} {% block banner %}{% endblock banner %} {% block content %}
+{% extends 'meetup/partials/base.html' %} 
+{% block title %}Meetup Delete Page{%endblock title %} 
+{% block banner %}{% endblock banner %} 
+
+{% block content %}
 <!-- Event Start -->
 <div class="container-xxl py-5">
 	<div class="container">
@@ -10,6 +13,7 @@ endblock title %} {% block banner %}{% endblock banner %} {% block content %}
 			<form action="" method="POST">
 				{% csrf_token %}
 				<h4>Are you sure you want to delete {{meetup}}</h4>
+				<a href="{% url 'user-meetup' request.user.id %}" class="btn btn-secondary">Cancel</a>
 				<input class="btn btn-danger" type="submit" value="Delete" />
 			</form>
 		</div>

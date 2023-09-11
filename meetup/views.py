@@ -220,6 +220,10 @@ class MeetupDelete(DeleteView):
     template_name = 'meetup/meetup_delete.html'
     success_url = reverse_lazy('meetup-index')
     
+    def form_valid(self, form):
+        messages.success(self.request, "The Meetup was deleted successfully.")
+        return super(MeetupDelete,self).form_valid(form)
+    
 
 
 ###--SPEAKER---######
@@ -277,17 +281,31 @@ def speaker_details(request, meetupid):
     return render(request, 'meetup/speaker_detail.html', context)
 
 
-# update speaker
-class SpeakerUpdate(UpdateView):
-    model = Speaker
-    form_class = SpeakerForm
-    template_name = 'meetup/add_speaker.html'
-    success_url = reverse_lazy('meetup-index')
-    
-    def form_isvalid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-    
+# # update speaker
+def update_speaker(request, pk):
+    speaker=Speaker.objects.get(id=pk)
+    if request.method =='POST':
+        form=SpeakerForm(request.POST,request.FILES, instance=speaker)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Speaker updated successfully.')
+        return redirect('/')
+    else:
+        form=SpeakerForm(instance=speaker)
+    context={
+        'form': form, 
+    }
+    return render(request, 'meetup/update_speaker.html', context)
+
+# Delete speaker
+def delete_speaker(request, pk):
+    speaker=Speaker.objects.get(id=pk)
+    if request.method=='POST':
+        speaker.delete()
+        messages.info(request, 'Speaker has been deleted.')
+        return redirect('/')
+    context={'speaker':speaker,}
+    return render(request, 'meetup/delete_speaker.html',context) 
     
 # particpant
 def participants(request, meetupid):
