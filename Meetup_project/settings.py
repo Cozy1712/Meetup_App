@@ -106,11 +106,11 @@ AUTH_USER_MODEL = 'meetup.myUser' #maunly create databasemodel
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'railway', 
-        'USER': 'postgres', 
-        'PASSWORD': 'HMOj4V7iiqMPWKL4hAHE',
-        'HOST': 'containers-us-west-83.railway.app', 
-        'PORT': '7449',
+        'NAME': config('DATABASE_NAME'), 
+        'USER': config('DATABASE_USER'), 
+        'PASSWORD': config('DATABASE_PASS'),
+        'HOST': config('DATABASE_HOST'), 
+        'PORT': config('DATABASE_PORT'),
     }
 }
 
