@@ -61,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -95,13 +96,23 @@ WSGI_APPLICATION = 'Meetup_project.wsgi.application'
 
 AUTH_USER_MODEL = 'meetup.myUser' #maunly create databasemodel
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+        
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'railway', 
+        'USER': 'postgres', 
+        'PASSWORD': 'HMOj4V7iiqMPWKL4hAHE',
+        'HOST': 'containers-us-west-83.railway.app', 
+        'PORT': '7449',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -173,4 +184,10 @@ EMAIL_HOST_USER = config('EMAIL_USER')
 EMAIL_HOST_PASSWORD =config('EMAIL_PASS')
 EMAIL_PORT = 587
 
-
+#  Aws s3 setup
+AWS_QUERYSTRING_AUTH=False
+DEFAULT_FILES_STORAGE= 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = 'AKIASNQWGE6XANS6QFCS'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'event-meetup'
+AWS_DEFAULT_ACL='public-read'

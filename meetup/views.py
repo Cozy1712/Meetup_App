@@ -13,6 +13,7 @@ from django.db.models import Q
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LogoutView
 
@@ -74,12 +75,10 @@ def index(request):
         Q(title__icontains=search)
     ) 
     count =meetups.count()
-    
     context = {
         'meetups': meetups,
         'count': count,
         'today': todayDate,
-        'info': 'A Place Where all Developer can Connect to Eachother',
     }
     return render(request, 'meetup/index.html', context)
 
@@ -93,11 +92,14 @@ def event(request):
         Q(title__icontains=search)
     ) 
     count =meetups.count()
-    
+    paginated=Paginator(meetups, 6)
+    page_number=request.GET.get('page') #get requested page number from the 
+    page=paginated.get_page(page_number)
     context = {
         'meetups': meetups,
         'count': count,
         'today': todayDate,
+        'page': page,
     }
     return render(request, 'meetup/event.html', context)
 
@@ -289,7 +291,7 @@ def update_speaker(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Speaker updated successfully.')
-        return redirect('/')
+        return redirect('speaker-detail', 3)
     else:
         form=SpeakerForm(instance=speaker)
     context={
