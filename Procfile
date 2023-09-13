@@ -1,3 +1,3 @@
-web: gunicorn Meetup_project.wsgi:application --log-file - --log-level debug
-python manage.py collectstatic --noinput
+web: gunicorn Meetup_project.wsgi:application 
+python manage.py collectstatic 
 manage.py migrate
