@@ -55,7 +55,7 @@ class Meetup(models.Model):
     location_address = models.TextField(blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
     participant =models.ManyToManyField(Participant, blank=True)
-    meetup_speakers =models.ManyToManyField(Speaker, blank=True, null=True)
+    meetup_speakers =models.ManyToManyField(Speaker, blank=True)
     activate = models.BooleanField(default=True)
     meetup_time = models.DateTimeField(auto_now_add=True)
     meetup_date = models.DateField(blank=True, null=True)

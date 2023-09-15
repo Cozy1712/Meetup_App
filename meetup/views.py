@@ -73,7 +73,7 @@ def index(request):
     meetups = Meetup.objects.filter(                      # meetup object in model   
         Q(description__icontains=search)|
         Q(title__icontains=search)
-    ) 
+    )[:6]
     count =meetups.count()
     context = {
         'meetups': meetups,
@@ -90,9 +90,9 @@ def event(request):
     meetups = Meetup.objects.filter(                      # meetup object in model   
         Q(description__icontains=search)|
         Q(title__icontains=search)
-    ) 
+    ).order_by('-id')
     count =meetups.count()
-    paginated=Paginator(meetups, 6)
+    paginated=Paginator(meetups, 4)
     page_number=request.GET.get('page') #get requested page number from the 
     page=paginated.get_page(page_number)
     context = {

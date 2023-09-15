@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'meetup.apps.MeetupConfig',
     'crispy_forms',
     'crispy_bootstrap5',
+    'storages',
     
 ]
 
@@ -96,23 +97,23 @@ WSGI_APPLICATION = 'Meetup_project.wsgi.application'
 
 AUTH_USER_MODEL = 'meetup.myUser' #maunly create databasemodel
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-        
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DATABASE_NAME'), 
-        'USER': config('DATABASE_USER'), 
-        'PASSWORD': config('DATABASE_PASS'),
-        'HOST': config('DATABASE_HOST'), 
-        'PORT': config('DATABASE_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': config('DATABASE_NAME'), 
+#         'USER': config('DATABASE_USER'), 
+#         'PASSWORD': config('DATABASE_PASS'),
+#         'HOST': config('DATABASE_HOST'), 
+#         'PORT': config('DATABASE_PORT'),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -150,7 +151,7 @@ USE_TZ = True
 
 
 
-STATICFILES_DIRS = [
+STATICFILES_DIR = [
     BASE_DIR / "static"
 ]
 
@@ -184,10 +185,14 @@ EMAIL_HOST_USER = config('EMAIL_USER')
 EMAIL_HOST_PASSWORD =config('EMAIL_PASS')
 EMAIL_PORT = 587
 
-#  Aws s3 setup
-AWS_QUERYSTRING_AUTH=False
+#  AWS S3 BUCKET CONFIG setup
+
+AWS_ACCESS_KEY_ID = config('ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('BUCKET_NAME')
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_QUERYSTRING_AUTH= False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
 DEFAULT_FILES_STORAGE= 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = 'AKIASNQWGE6XANS6QFCS'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'event-meetup'
-AWS_DEFAULT_ACL='public-read'

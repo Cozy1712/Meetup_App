@@ -59,6 +59,21 @@
 			</div>
 			{% endfor %}
 	    </div>
+		{% if page.has_previous %}
+			<a href="?page={{page.previous_page_number}}" class="btn btn-info mx-2">pervious</a>
+		{% endif %}
+		<a href="?page=1" class="btn btn-info">first</a>
+			{% for num in page.paginator.page_range %}
+				{% if num == page.number %}
+				  <span>{{num}}</span>
+				{% else %}
+				   <a href="?page={{num}}" class="btn btn-info mx-2">{{num}}</a>
+				{% endif %}
+			{% endfor %}
+			<a href="?page={{page.paginator.num_pages}}" class="btn btn-info mx-2">last</a>
+			{% if page.has_next %}
+			  <a href="?page={{page.next_page_number}}" class="btn btn-info mx-2">next</a>
+			{% endif %}
 	</div>
 </div>
 <!-- upcoming_meetup End -->
