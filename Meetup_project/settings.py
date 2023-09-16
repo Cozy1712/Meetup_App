@@ -38,9 +38,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://web-production-a1d4.up.railway.app/','https://*.127.0.0.1:8000' ]
+
+# csrf trusted
+CSRF_TRUSTED_ORIGINS = ['https://*.https://web-production-a1d4.up.railway.app','https://*.127.0.0.1:8000']
+
 
 
 # Application definition
@@ -164,8 +168,6 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# csrf trusted
-CSRF_TRUSTED_ORIGINS = ['https://*.https://web-production-a1d4.up.railway.app','https://*.127.0.0.1:8000']
 
 # #############################
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
