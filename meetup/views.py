@@ -16,14 +16,12 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LogoutView
-from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 
 # Create your views here.
     
 # Login using FBV
-@ensure_csrf_cookie
 def Login(request):
     if request.user.is_authenticated:
         return redirect('meetup-index')
@@ -43,7 +41,6 @@ def Login(request):
     return render(request, 'meetup/login.html')
   
 # Register
-@ensure_csrf_cookie
 def Register(request):
     
     form = MyUserRegistrationForm()
