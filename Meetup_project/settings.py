@@ -165,7 +165,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # csrf trusted
-# CSRF_TRUSTED_ORIGINS = ['https://*.https://web-production-a1d4.up.railway.app','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://*.https://web-production-a1d4.up.railway.app','https://*.127.0.0.1:8000']
 
 # #############################
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
