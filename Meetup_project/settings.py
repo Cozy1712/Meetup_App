@@ -43,7 +43,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 # csrf trusted
-CSRF_TRUSTED_ORIGINS = ['https://*.web-production-a1d4.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://*.https://event-meetup.up.railway.app']
 
 
 
