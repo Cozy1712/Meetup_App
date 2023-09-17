@@ -37,7 +37,7 @@ def Login(request):
             messages.success(request, 'You are logged in.')
             return redirect('meetup-index')
         else:
-            messages.error(request, user)
+            messages.error(request, 'You have entered an invalid credential')
     return render(request, 'meetup/login.html')
   
 # Register
