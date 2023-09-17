@@ -558,6 +558,7 @@
 /*** Footer ***/
 .footer {
     color: #B0B9AE;
+    bottom: 0;
 }
 
 .footer .btn.btn-link {
