@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
+# user--model
 class myUser(AbstractUser):
     name = models.CharField(max_length=200, null= True)
     email = models.EmailField(unique=True, null=True)
@@ -9,9 +11,12 @@ class myUser(AbstractUser):
     image = models.ImageField(null=True)
     mobile_number = models.CharField(max_length=15, blank=True, null=True)
     birth_date = models.DateField(null=True, blank=True)
+    user_id = models.AutoField(primary_key=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-    
+
+
+#  Location--Model 
 class Location(models.Model):
     user = models.ForeignKey(myUser, on_delete= models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=50)
@@ -20,7 +25,7 @@ class Location(models.Model):
     def __str__(self):
         return f'{self.name}-{self.address}'
         
-    
+# Participant--Model 
 class Participant(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=200, blank=True, null=True)
@@ -28,7 +33,18 @@ class Participant(models.Model):
     
     def __str__(self):
         return f'{self.email} - {self.name}'
+ 
+# Testimonial--comment
+class Testimonial(models.Model):
+    name=models.CharField(max_length=200)
+    profession=models.CharField(max_length=200, null=True)
+    comment=models.TextField(blank=True, null=True)
+    image =models.ImageField(upload_to='testimonial_img')
     
+    def __str__(self):
+        return f'{self.name} - {self.profession}'
+    
+# Speakers   
 class Speaker(models.Model):
     user = models.ForeignKey(myUser, on_delete=models.CASCADE,  null=True, blank=True)
     name = models.CharField(max_length=200)
@@ -43,7 +59,7 @@ class Speaker(models.Model):
         return f'{self.name}'
 
 
-
+# Meetup--Model
 class Meetup(models.Model):
     user = models.ForeignKey(myUser, on_delete=models.CASCADE, blank=True, null=True)
     organizer_email = models.EmailField(max_length=254, null=True)
