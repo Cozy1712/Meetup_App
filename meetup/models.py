@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+# import uuid
 
 # Create your models here.
 
@@ -11,7 +12,7 @@ class myUser(AbstractUser):
     image = models.ImageField(null=True)
     mobile_number = models.CharField(max_length=15, blank=True, null=True)
     birth_date = models.DateField(null=True, blank=True)
-    user_id = models.AutoField(primary_key=True)
+    # user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
