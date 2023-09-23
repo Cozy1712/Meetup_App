@@ -15,6 +15,7 @@
 			style="max-width: auto">
 			<marquee behavior="" direction="">
 				<h6 class="fs-5 fw-bold mb-3">Welcome, {{request.user.username}} 👋</h6>
+				<p class="h6 p-2">How do you feel about our website.<a href="" class="px-2" data-bs-toggle="modal" data-bs-target="#commentModal">Rate us</a></p>
 			</marquee>
 			<div class="d-flex">
 				<a
@@ -23,7 +24,11 @@
 					Create Meetup</a
 				>
 				<p  class="btn btn-info position-relative ms-auto">
+					{% if counts > 1 %}
 					meetups
+					{% else %}
+					meetup
+					{% endif %}
 					<span
 						class="position-absolute top-0 start-100 translate-middle badge border rounded-pill bg-success">
 						{{counts}}
@@ -31,6 +36,7 @@
 				</p>
 			</div>
 		</div>
+		{% include 'meetup/add_comment.html' %}
 		<hr />
 		<div class="row wow fadeInUp">
 			{% for meetup in meetups%}
@@ -69,6 +75,8 @@
 					</div>
 				</div>
 			</div>
+			{%empty%}
+                <p class="h6 text-center fs-5">No meetup yet! Create a meetup</p>	
 			{% endfor %}
 	    </div>
 	</div>

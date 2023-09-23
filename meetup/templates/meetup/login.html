@@ -11,7 +11,7 @@
                 <div class="col-lg-6 wow fadeInUp shadow bg-primary-subtle rounded p-4" data-wow-delay="0.5s">
                     <h2 class="mb-4">Sign In to Your Account</h2>
                     <hr>
-                    <form method="POST" class="row g-3" enctype="multipart/form-data">
+                    <form method="POST" class="row g-3" enctype="multipart/form-data" autocomplete="off">
                        {% csrf_token %}
                        <div class="mb-3 form-floating">
                         <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Enter your Email" aria-describedby="emailHelp">

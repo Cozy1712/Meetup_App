@@ -9,8 +9,8 @@
             <h1 class="display-2 text-white mb-4 animated slideInDown">Upcoming Meetup</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Events</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'meetup-index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'meetup-event' %}">Events</a></li>
                     <li class="breadcrumb-item text-primary" aria-current="page">Upcoming Events</li>
                 </ol>
             </nav>
@@ -47,11 +47,20 @@
                     </div>
                     <div class="p-2">
                         <p class="d-block h5 text-decoration-none">{{meetup.title}}</p>
-                        <p class="fw-light text-secondary fs-6">{{meetup.from_date}} - {{meetup.to_date}}</p>
+                        <p class="fw-light text-secondary fs-6">Date: {{meetup.from_date}} - {{meetup.to_date}}</p>
+                        <p> Remaining: {{ meetup.from_date|timeuntil }}</p>
                         <span>{{meetup.description| truncatewords:8 }} <a href="{% url 'meetup_detail' meetup.slug %}" class="text-decoration-none">Read more...</a></span>
                     </div>
+                    {% comment %} {%if meetup.to_date < todayDate %}
+                    <a  class="btn btn-warning rounded-full"  target="_new" href="">Past Event</a>
+                    {% else%}
+                    <a  class="btn primary-btn rounded-full"  target="_new" href="{% url 'meetup_detail' meetup.slug %}">Learn More</a>
+                    {%endif%} {% endcomment %}
+           
                 </div>
                 {% endif %}
+                {%empty%}
+                <p class="h6 text-center fs-5">No upcoming meetup found</p>
                 {% endfor %}
             </div>
         </div>

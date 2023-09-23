@@ -597,3 +597,7 @@
 .copyright a:hover {
     color: var(--primary) !important;
 }
+
+.asteriskField {
+    display: none;
+}

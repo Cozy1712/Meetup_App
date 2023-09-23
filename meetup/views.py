@@ -3,10 +3,10 @@ from django import http
 from django.forms.models import BaseModelForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Meetup,Speaker
+from .models import Meetup,Speaker,Testimonial
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from django.contrib.auth import authenticate, login, logout
-from .forms import UseMeetupForm, MyUserRegistrationForm, ParticipantForm, SpeakerForm
+from .forms import UseMeetupForm, MyUserRegistrationForm, ParticipantForm, SpeakerForm, TestimonialForm, ContactForm
 from django.urls import reverse_lazy
 from string import punctuation
 from django.db.models import Q
@@ -16,11 +16,12 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LogoutView
+from django.core.mail import send_mail, BadHeaderError
 
 
 
 # Create your views here.
-    
+
 # Login using FBV
 def Login(request):
     if request.user.is_authenticated:
@@ -34,10 +35,10 @@ def Login(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'You are logged in.')
+            messages.success(request, f'You are now logged in as {email}.')
             return redirect('meetup-index')
         else:
-            messages.error(request, 'You have entered an invalid credential')
+            messages.error(request, 'Invalid Email or Password')
     return render(request, 'meetup/login.html')
   
 # Register
@@ -77,10 +78,12 @@ def index(request):
         Q(title__icontains=search)
     ).order_by('?')[:6]
     count =meetups.count()
+    testimonials=Testimonial.objects.all().order_by('?')
     context = {
         'meetups': meetups,
         'count': count,
         'today': todayDate,
+        'testimonials': testimonials,
     }
     return render(request, 'meetup/index.html', context)
 
@@ -94,7 +97,7 @@ def event(request):
         Q(title__icontains=search)
     )
     count =meetups.count()
-    paginated=Paginator(Meetup.objects.all(), 6)
+    paginated=Paginator(Meetup.objects.all().order_by('-to_date'), 6)
     page=request.GET.get('page') #get requested page number from the 
     meetup=paginated.get_page(page)
     context = {
@@ -119,9 +122,19 @@ def user_meetups(request, pk):
         Q(location_name__icontains=search)
     )
     counts = meetups.count()
+    
+    if request.method == "POST":
+        form=TestimonialForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'You have successfully commented on our Event Meetup')
+            return redirect('/') 
+    else:
+        form=TestimonialForm()
     context={
         'meetups':meetups,
         'counts':counts,
+        'form':form,
     }
     return render(request, 'meetup/user_meetup.html', context)
     
@@ -293,7 +306,7 @@ def update_speaker(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Speaker updated successfully.')
-        return redirect('speaker-detail', 3)
+        return redirect('/')
     else:
         form=SpeakerForm(instance=speaker)
     context={
@@ -322,3 +335,54 @@ def participants(request, meetupid):
         'counts': count,
     }
     return render(request, 'meetup/participant.html', context)
+
+
+def testimonial(request):
+    testimonials=Testimonial.objects.all().order_by('?')
+    context={
+        'testimonials': testimonials
+    }
+    return render(request, 'meetup/testimonial.html',context)
+
+# def comments(request):
+    # if request.method == "POST":
+    #     form=TestimonialForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         form.save()
+    #         messages.success(request, 'You have successfully commented on our Event Meetup')
+    #         return redirect('/') 
+    # else:
+    #     form=TestimonialForm()
+    
+    # context={
+    #     'form':form
+    # }
+    # return render(request,'meetup/add_comment.html', context)
+    
+    
+    
+def contact(request):
+    if request.method == "POST":
+        form=ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            body = {
+                'name': form.cleaned_data['name'],
+                'email': form.cleaned_data['email'],
+                'message': form.cleaned_data['message']
+            }
+            message = '\n'.join(body.values())
+            try:
+                send_mail(subject, message, 'djangocozy@gmail.com', ['djangocozy@gmail.com'])
+                messages.success(request, 'A Mail has been sent successfully')
+            except BadHeaderError:
+                return HttpResponse('Inavlid header found') 
+            return redirect('/')
+    else:
+        form=ContactForm()
+    
+    return render(request, 'meetup/contact.html', {'form':form})
+
+
+def success(request):
+    return render(request, 'meetup/contact_success.html')

@@ -30,22 +30,28 @@
 <!-- Navbar Start -->
 <div class="container-fluid bg-white sticky-top">
     <div class="container">
-        <nav class="navbar navbar-expand-lg bg-white navbar-light p-lg-0">
-            <a href="{% url 'meetup-index' %}" class="navbar-brand d-lg-none">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light p-lg-0 align-items-center">
+            <a href="{% url 'meetup-index' %}" class="navbar-brand d-lg-none w-auto">
                 <h1 class="fw-bold m-0">Event Meetup</h1>
             </a>
-            <div class="ms-auto d-lg-flex">
-                <form action="" method="GET"> 
-                   <div class="ms-auto d-none input-group-sm input-group">
-                        <input type="search" class="form-group rounded-start border border-secondary px-2" name="search" placeholder="Search" aria-describedby="button-addon">
-                        <button class="btn btn-outline-secondary btn-sm bi-search" type="submit" id="button-addon"></button>
-                    </div>
-                </form>
+            
+            <div class="dropdown-center d-lg-none me-1">
+                <a href="#" class="bi-search text-dark" role='button' data-bs-toggle="dropdown"></a>
+                <div class="dropdown-menu dropdown-menu-end-sm dropdown-menu-end bg-transparent border-0 p-2">
+                    <form action="" method="GET" autocomplete="off" class='w-100'> 
+                        <div class="input-group">
+                            <span class="my-4 px-5 mx-5 disabled"></span>
+                            <input type="search" class="form-group rounded-start border border-secondary px-2" name="search" placeholder="Search" aria-describedby="button-addon"  style="width: 161px !important;">
+                            <button class="btn btn-outline-secondary btn-sm bi-search bg-white" type="submit" id="button-addon"></button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse"
                 data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
+           
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav">
                     {%if request.user.is_authenticated%}
@@ -55,34 +61,34 @@
                     <a href="{% url 'upcoming_meetup'%}" class="nav-item nav-link">Upcoming Events</a>
                     <a href="{% url 'user-meetup' request.user.id %}" class="nav-item nav-link">My Meetup</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle disabled" data-bs-toggle="dropdown">Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0">
                             <a href="feature.html" class="dropdown-item">Features</a>
                             <a href="team.html" class="dropdown-item">Our Team</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="quote.html" class="dropdown-item">Quotation</a>
+                            <a href="{% url 'meetup_testimonial'%}" class="dropdown-item">Testimonial</a>
                         </div>
                     </div>
                     <a href="{% url 'meetup_logout' %}" class="nav-item nav-link d-lg-none">Logout</a>
+                    <a href="{% url 'meetup_contact'%}" class="nav-item nav-link">Contact</a>
 
                     {% else %}
                     <a href="{% url 'meetup-index' %}" class="nav-item nav-link active">Home</a>
                     <a href="{% url 'meetup-event' %}" class="nav-item nav-link">Events</a>
                     <a href="{% url 'upcoming_meetup'%}" class="nav-item nav-link">Upcoming Events</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle disabled" data-bs-toggle="dropdown">Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0">
                             <a href="feature.html" class="dropdown-item">Features</a>
                             <a href="team.html" class="dropdown-item">Our Team</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="quote.html" class="dropdown-item">Quotation</a>
+                            <a href="{% url 'meetup_testimonial' %}" class="dropdown-item">Testimonial</a>
                         </div>
                     </div>
+                    <a href="{% url 'meetup_contact'%}" class="nav-item nav-link">Contact</a>
                     <a href="{% url 'meetup_login' %}" class="nav-item nav-link d-lg-none">Login</a>
                     <a href="{% url 'meetup_register' %}" class="nav-item nav-link d-lg-none">Register</a>
                     {% endif %}
                 </div>
-                <div class="ms-auto d-lg-flex">
+                <div class="ms-auto d-lg-flex d-none">
                     <form action="" method="GET"> 
                        <div class="ms-auto d-flex input-group-sm input-group">
                             <input type="search" class="form-group rounded-start border border-secondary  px-2" name="search" placeholder="Search" aria-describedby="button-addon">
@@ -95,4 +101,3 @@
     </div>
 </div>
 <!-- Navbar End -->
-

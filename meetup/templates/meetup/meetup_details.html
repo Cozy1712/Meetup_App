@@ -11,8 +11,9 @@
 		</h1>
 		<nav aria-label="breadcrumb animated slideInDown">
 			<ol class="breadcrumb justify-content-center mb-0">
-				<li class="breadcrumb-item"><a href="#">Home</a></li>
-				<li class="breadcrumb-item"><a href="#">Events</a></li>
+				<li class="breadcrumb-item"><a href="{% url 'meetup-index' %}">Home</a></li>
+				<li class="breadcrumb-item"><a href="{% url 'meetup-event' %}">Events</a></li>
+				<li class="breadcrumb-item"><a href="{% url 'upcoming_meetup' %}">upcoming_meetup</a></li>
 				<li class="breadcrumb-item text-primary" aria-current="page">
 					Meetup Details
 				</li>
@@ -30,8 +31,10 @@
 		<div class="row g-5">
 			<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
 				<p class="fs-5 fw-medium text-primary">{{meetup.title}}</p>
+				<p class="h6">LOCATION: {{meetup.location_name}}</p>
+				<p class="small-title text-sm h6">ADDRESS: {{meetup.location_address}}</p>
+				<p>Date: {{meetup.from_date}}</p>
 				<p>{{meetup.description}}</p>
-				<p>{{meetup.from_date}}</p>
 				<p class="mb-4">
 					<img
 						src="{{meetup.image.url}}"
@@ -56,7 +59,7 @@
 
 			<div class="col-lg-6 wow fadeInUp my-5" data-wow-delay="0.5s">
 				<h2 class="mb-4">Join Meetup</h2>
-				<form class="row g-3" method="POST">
+				<form class="row g-3" method="POST" autocomplete="off">
 					{% csrf_token %}
 					<div class="col-sm-6">
 						<div class="form-floating">
@@ -102,7 +105,7 @@
 			<div class="my-5">
                 <div class="d-flex">
                     <p class="fs-5 fw-medium text-primary align-self-center">
-                        Participants
+                       {% if count > 1 %} Participants {% else %} Participant {% endif %}
                     </p>
                     <span class="barge bg-primary-subtle text-primary ms-auto align-self-center rounded p-1 fs-6">{{count}}</span>
                 </div>
@@ -123,6 +126,8 @@
 							</div>
 						</div>
 					</div>
+					{%empty%}
+                     <p class="h6 text-center fs-5">No participant yet</p>
                     {% endfor %}
 				</div>
 			</div>
@@ -135,7 +140,7 @@
 <div class="container-xxl py-5">
 	<div class="container">
 		<div class="wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px">
-			<p class="fs-5 fw-medium text-primary">Speakers</p>
+			<p class="fs-5 fw-medium text-primary">{% if count > 1 %} Speaker {% else %} Speakers {% endif %} </p>
 		</div>
 		<div class="row g-4">
 			{% for speaker in speakers %}
@@ -166,6 +171,8 @@
 					</ul>
 				</div>
 			</div>
+			{%empty%}
+                <p class="h6 text-center fs-5">No speaker yet</p>
 			{% endfor %}
 		</div>
 	</div>

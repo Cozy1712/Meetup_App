@@ -9,7 +9,7 @@
             <h1 class="display-2 text-white mb-4 animated slideInDown">Events</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'meetup-index' %}">Home</a></li>
                     <li class="breadcrumb-item text-primary" aria-current="page">Events</li>
                 </ol>
             </nav>
@@ -46,7 +46,8 @@
 						<div class="col-md-8 align-items-center">
 							<div class="card-body">
 								<h5 class="card-title">{{meetup.title}}</h5>
-								<p class=" card-text text-secondary small">{{meetup.from_date}} - {{meetup.to_date}}</p>
+								<p class=" card-text text-secondary small">Date: {{meetup.from_date}} - {{meetup.to_date}}</p>
+								<p class=" card-text text-secondary small">Created: {{ meetup.meetup_time|timesince }} ago</p>
 								<span>{{meetup.description|truncatewords:8}}
 									<p>
 									    <a href="{% url 'meetup_detail' meetup.slug %}" class="text-primary text-decoration-none">Read more...</a>
@@ -57,6 +58,8 @@
 					</div>
 				</div>
 			</div>
+			{%empty%}
+                <p class="h6 text-center fs-5">search not found</p>
 			{% endfor %}
 	    </div>
 		<ul class="pagination pagination-sm">

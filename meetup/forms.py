@@ -1,8 +1,8 @@
 from django import forms
-from .models import Meetup,myUser,Participant,Speaker
+from .models import Meetup,myUser,Participant,Speaker,Testimonial
 from django.contrib.auth.forms import UserCreationForm
 # from django.forms import TextInput,PasswordInput,EmailInput, FileInput
-
+from django.core.validators import EmailValidator
 
 class MyUserRegistrationForm(UserCreationForm):
     class Meta:
@@ -56,3 +56,15 @@ class SpeakerForm(forms.ModelForm):
             'bio':forms.Textarea(attrs={'placeholder':'here...'}),
         }
         
+class TestimonialForm(forms.ModelForm):
+    class Meta:
+        model= Testimonial
+        fields= ['name', 'profession', 'comment', 'image']
+        
+        
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder':'Your name'}))
+    email = forms.EmailField(validators=[EmailValidator()], widget=forms.EmailInput(attrs={'placeholder':'Your email'}))
+    subject=forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder':'Subject...'}))
+    message=forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Message...'}))
+    

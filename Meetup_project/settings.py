@@ -38,9 +38,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1','https://event-meetup.up.railway.app']
 
 # csrf trusted
 CSRF_TRUSTED_ORIGINS = ['https://*.event-meetup.up.railway.app']
@@ -80,7 +80,7 @@ ROOT_URLCONF = 'Meetup_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'meetup/templates/meetup'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -101,23 +101,23 @@ WSGI_APPLICATION = 'Meetup_project.wsgi.application'
 
 AUTH_USER_MODEL = 'meetup.myUser' #maunly create databasemodel
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        
-    }
-}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': config('DATABASE_NAME'), 
-#         'USER': config('DATABASE_USER'), 
-#         'PASSWORD': config('DATABASE_PASS'),
-#         'HOST': config('DATABASE_HOST'), 
-#         'PORT': config('DATABASE_PORT'),
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+        
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DATABASE_NAME'), 
+        'USER': config('DATABASE_USER'), 
+        'PASSWORD': config('DATABASE_PASS'),
+        'HOST': config('DATABASE_HOST'), 
+        'PORT': config('DATABASE_PORT'),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -203,3 +203,18 @@ AWS_QUERYSTRING_AUTH= False
 AWS_DEFAULT_ACL = None
 DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
 DEFAULT_FILES_STORAGE= 'storages.backends.s3boto3.S3Boto3Storage'
+
+#  AWS SEND-EMAIL BACKEND SES
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django_ses.SESBackend'
+AWS_SES_REGION_NAME = config('REGION_NAME')
+AWS_SES_REGION_ENDPOINT = config('REGION_ENDPOINT')
+
+CRISPY_CLASS_CONVERTERS = {
+    'textinput': "form-control",
+    'textarea': "form-control ",
+    'emailinput': "form-control",
+    'dateinput': "form-control",
+    'textarea': "form-control",
+    'passwordinput': "form-control",
+}

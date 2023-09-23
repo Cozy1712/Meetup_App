@@ -12,35 +12,39 @@
 			class="text-center text-md-start pb-5 pb-md-0 wow fadeInUp"
 			data-wow-delay="0.1s"
 			style="max-width: 500px">
-			<p class="fs-5 fw-medium text-primary">Speakers {{counts}}</p>
+			<p class="fs-5 fw-medium text-primary">{% if counts > 1 %}Speakers {% else %} Speaker {% endif %} <span class="text-end">{{counts}}</span></p>
 		</div>
 		<hr />
-		<div class="row">
+		<div class="row justify-content-center">
 			{% for speaker in speakers%}
-			<div class="col-lg-5 rounded testimonial-item p-2 ms-5 mb-3">
-				<div class="d-flex">
+			<div class="col-sm-5 rounded card p-2 mx-2 mb-3 border-0 shadow fadeInUp wow">
+				<div class="card-header border-0 bg-white d-flex text-center justify-content-center">
 					<img
-						class="mb-2"
+						class="mb-2 rounded-circle img-fluid"
 						src="{{speaker.image.url}}"
-						alt="{{speaker.name}}" />
-					<h5 class="px-4 my-4">{{speaker.name}} <p class="fs-6 my-2">Proffession <span class="text-info px-2">{{speaker.proffession}}</span></p></h5> 
+						alt="{{speaker.name}}" style="height:100px; width:100px;" />
+					<h5 class="px-3 my-3">{{speaker.name}} <p class="fs-6 my-2">Profession: <span class="text-info">{{speaker.proffession}}</span></p></h5> 
 				</div>
-				<div class="px-3">
+				<div class="card-body px-3 p-0">
 					<a
-						class="text-primary px-2 text-decoration-none bi-envelope-fill"
+						class="text-primary text-center text-decoration-none bi-envelope-fill"
 						href="mailto:{{speaker.email}}">
 						{{speaker.email}}</a
-					>
+					><br>
 					<a
-						class="text-primary text-decoration-none px-5 bi-telephone-fill"
+						class="text-primary text-center text-decoration-none bi-telephone-fill"
 						href="tel:{{speaker.phone}}">
 						{{speaker.phone}}</a
 					>
 					<p class="">{{speaker.bio}}</p>
-					<a href="{% url 'update_speaker' speaker.id %}" class="text-dark"><i class="fa fa-pen-to-square"></i></a>
-					<a href="{% url 'delete_speaker' speaker.id %}" class="text-danger"><i class="fa fa-trash"></i></a>
+					<span>
+						<a href="{% url 'update_speaker' speaker.id %}" class="text-dark"><i class="fa fa-pen-to-square"></i></a>
+						<a href="{% url 'delete_speaker' speaker.id %}" class="text-danger px-2"><i class="fa fa-trash"></i></a>
+				    </span>
 				</div>
 			</div>
+			{% empty %}
+			<span> No speaker yet</span>	
 			{% endfor %}
 		</div>
 	</div>
