@@ -40,7 +40,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','event-meetup.up.railway.app.']
+ALLOWED_HOSTS = ['127.0.0.1','event-meetup.up.railway.app']
 
 # csrf trusted
 CSRF_TRUSTED_ORIGINS = ['https://*.event-meetup.up.railway.app']
