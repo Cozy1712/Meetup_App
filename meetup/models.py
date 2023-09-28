@@ -12,6 +12,7 @@ class myUser(AbstractUser):
     image = models.ImageField(null=True)
     mobile_number = models.CharField(max_length=15, blank=True, null=True)
     birth_date = models.DateField(null=True, blank=True)
+    profession = models.CharField(max_length=200, null=True, blank=True)
     # user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -54,6 +55,8 @@ class Speaker(models.Model):
     phone = models.CharField(max_length=200, blank=True, null=True)
     meetup_name = models.CharField(max_length=200, blank=True, null=True)
     image = models.ImageField(upload_to='speaker_img')
+    instagram = models.URLField(blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     
     def __str__(self):

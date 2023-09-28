@@ -15,6 +15,13 @@
             </a>
             <div class="ms-auto d-flex align-items-center">
                 {%if request.user.is_authenticated%}
+                <div class="nav-item dropdown d-none">
+                    <button class="nav-link" data-bs-toggle="dropdown">Profile</button>
+                    <div class="dropdown-menu rounded-0 rounded-bottom m-0">
+                        <a href="{% url 'user_profile' %}" class="dropdown-item">Profile</a>
+                        <a href="{% url 'meetup_logout' %}" class="dropdown-item">logout</a>
+                    </div>
+                </div>
                 <a class="btn btn-info" href="{% url 'meetup_logout' %}"><i class=" fa fa-right-from-bracket"></i> Logout</a>
                 {%else%}
                 <span><a href="{% url 'meetup_login' %}" class="btn btn-primary rounded-start-pill py-2">Sign In</a></span>
@@ -52,7 +59,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
            
-            <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav">
                     {%if request.user.is_authenticated%}
                     
@@ -62,14 +69,21 @@
                     <a href="{% url 'user-meetup' request.user.id %}" class="nav-item nav-link">My Meetup</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0">
-                            <a href="feature.html" class="dropdown-item">Features</a>
-                            <a href="team.html" class="dropdown-item">Our Team</a>
+                        <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0 border-0">
+                            <a href="feature.html" class="dropdown-item d-none">Features</a>
+                            <a href="team.html" class="dropdown-item d-none">Our Team</a>
                             <a href="{% url 'meetup_testimonial'%}" class="dropdown-item">Testimonial</a>
                         </div>
                     </div>
-                    <a href="{% url 'meetup_logout' %}" class="nav-item nav-link d-lg-none">Logout</a>
+                   
                     <a href="{% url 'meetup_contact'%}" class="nav-item nav-link">Contact</a>
+                    <div class="nav-item dropdown d-lg-none">
+                        <button class="nav-link" data-bs-toggle="dropdown">Settings</button>
+                        <div class="dropdown-menu rounded-0 rounded-bottom m-0 border-0">
+                            <a href="{% url 'user_profile' %}" class="dropdown-item">Profile</a>
+                            <a href="{% url 'meetup_logout' %}" class="dropdown-item">logout</a>
+                        </div>
+                    </div>
 
                     {% else %}
                     <a href="{% url 'meetup-index' %}" class="nav-item nav-link active">Home</a>
@@ -77,9 +91,9 @@
                     <a href="{% url 'upcoming_meetup'%}" class="nav-item nav-link">Upcoming Events</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0">
-                            <a href="feature.html" class="dropdown-item">Features</a>
-                            <a href="team.html" class="dropdown-item">Our Team</a>
+                        <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0 border-0">
+                            <a href="feature.html" class="dropdown-item d-none">Features</a>
+                            <a href="team.html" class="dropdown-item d-none">Our Team</a>
                             <a href="{% url 'meetup_testimonial' %}" class="dropdown-item">Testimonial</a>
                         </div>
                     </div>
@@ -89,13 +103,20 @@
                     {% endif %}
                 </div>
                 <div class="ms-auto d-lg-flex d-none">
-                    <form action="" method="GET"> 
-                       <div class="ms-auto d-flex input-group-sm input-group">
+                    <form action="" method="GET" class="ms-auto"> 
+                        <div class="ms-auto d-flex input-group-sm input-group">
                             <input type="search" class="form-group rounded-start border border-secondary  px-2" name="search" placeholder="Search" aria-describedby="button-addon">
                             <button class="btn btn-outline-secondary btn-sm bi-search" type="submit" id="button-addon"></button>
                         </div>
                     </form>
-                </div>
+                    {% if request.user.is_authenticated %}
+                    <div class="ms-auto d-lg-flex d-none">
+                        <a href="{% url 'user_profile' %}" class="dropdown-item text-end mx-4">
+                            <img src="{{user.image.url}}" alt="" class="rounded-circle" style="height: 30px; width:30px;">
+                        </a>
+                    </div>
+                    {% endif %}
+               </div>
             </div>
         </nav>
     </div>

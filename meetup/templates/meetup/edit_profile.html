@@ -1,0 +1,54 @@
+{% extends 'meetup/partials/base.html' %}
+{%load static%}
+{% block title %}Edit Profile Page{% endblock title %}
+{% block banner %}{% endblock banner %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    
+    <!-- Profile  Start--> 
+    <div class="container-xxl py-5">
+        <div class="container emp-profile">
+            <form method="POST" enctype="multipart/form-data" autocomplete="off">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="{{user.image.url}}" alt="..."/>
+                            <div class="file btn btn-lg btn-primary invisible">
+                                Change Photo
+                                <input type="file" name="file"/>
+                            </div>
+                        </div>
+                        <div class="form-floating">
+                            {{form.image|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                        </div>
+                        <div class="form-floating">
+                            {{form.name|as_crispy_field}}
+                        </div>
+                        <div class="form-floating">
+                            {{form.username|as_crispy_field}}
+                        </div>
+                        <div class="form-floating">
+                            {{form.profession|as_crispy_field}}
+                        </div>
+                        <div class="form-floating">
+                            {{form.mobile_number|as_crispy_field}}
+                        </div>
+                        <div class="form-floating">
+                            {{form.bio|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" class="profile-edit-btn "  value="save"/>
+                    </div>
+                </div>
+            </form>           
+        </div>
+    </div>
+   <!--Profile End -->
+{% endblock content %}

@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from .models import Meetup,Speaker,Testimonial
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from django.contrib.auth import authenticate, login, logout
-from .forms import UseMeetupForm, MyUserRegistrationForm, ParticipantForm, SpeakerForm, TestimonialForm, ContactForm
+from .forms import UseMeetupForm, MyUserRegistrationForm, ParticipantForm, SpeakerForm, TestimonialForm, ContactForm, ProfileUpdateForm
 from django.urls import reverse_lazy
 from string import punctuation
 from django.db.models import Q
@@ -169,13 +169,13 @@ def meetup_details(request, meetup_slug):
     return render(request, 'meetup/meetup_details.html', context)
 
 # comfirming Registration for adding participant
+@login_required
 def confirmReg(request):
     messages.success(request, 'You have successfully Joined.')
     return render(request, 'meetup/confirm_reg.html')
 
 
 #Upcoming meetups
-
 def upcoming_meetup(request):
     search= request.GET.get('search') if request.GET.get('search')  != None else ''
     meetups = Meetup.objects.filter(activate=True)
@@ -246,6 +246,7 @@ class MeetupDelete(DeleteView):
 ###--SPEAKER---######
 
 # add speaker
+@login_required
 def add_speaker(request, pk):
     selected_meetup = Meetup.objects.get(id=pk)  #using ORM(oject relational mapper) to get data from the database
     if request.method=='GET':
@@ -268,6 +269,7 @@ def add_speaker(request, pk):
     return render(request, 'meetup/add_speaker.html',context)
 
 # user speaker
+@login_required
 def user_speaker(request, userid):
     search = request.GET.get('search') if request.GET.get('search') != None else ''  #request.GET.get to get a particular data
     
@@ -286,6 +288,7 @@ def user_speaker(request, userid):
     return render(request, 'meetup/user-speaker.html',context)
 
 # view speaker
+@login_required
 def speaker_details(request, meetupid):
     meetup = Meetup.objects.get(id=meetupid)
     speakers=meetup.meetup_speakers.all().order_by('-id')
@@ -299,6 +302,7 @@ def speaker_details(request, meetupid):
 
 
 # # update speaker
+@login_required
 def update_speaker(request, pk):
     speaker=Speaker.objects.get(id=pk)
     if request.method =='POST':
@@ -315,6 +319,7 @@ def update_speaker(request, pk):
     return render(request, 'meetup/update_speaker.html', context)
 
 # Delete speaker
+@login_required
 def delete_speaker(request, pk):
     speaker=Speaker.objects.get(id=pk)
     if request.method=='POST':
@@ -325,6 +330,7 @@ def delete_speaker(request, pk):
     return render(request, 'meetup/delete_speaker.html',context) 
     
 # particpant
+@login_required
 def participants(request, meetupid):
     meetup = Meetup.objects.get(id=meetupid)
     participant=meetup.participant.all().order_by('-id')
@@ -386,3 +392,24 @@ def contact(request):
 
 def success(request):
     return render(request, 'meetup/contact_success.html')
+
+
+
+def profile(request):
+    return render(request, 'meetup/profile.html')
+
+def profile_update(request):
+    if request.method == "POST":
+        form=ProfileUpdateForm(request.POST,request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+        return redirect('user_profile')
+    else:
+        form=ProfileUpdateForm(instance=request.user)
+    context={
+        'form': form
+    }
+    return render(request, 'meetup/edit_profile.html', context)
+
+def app_404(request):
+    return render(request, 'meetup/404.html')

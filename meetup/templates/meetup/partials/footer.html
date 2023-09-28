@@ -13,7 +13,7 @@
             <div class="col-md-4 col-6">
                 <h5 class="text-white mb-4">Your Account</h5>
                 {% if request.user.is_authenticated%}
-                <a class="btn btn-link" href="#">Profile</a>
+                <a class="btn btn-link" href="{% url 'user_profile' %}">Profile</a>
                 <a class="btn btn-link" href="{% url 'user-meetup' request.user.id %}">My Meetup</a>
                 <a class="btn btn-link" href="{% url 'meetup_logout' %}">Logout</a>
                 {% else %}
@@ -25,28 +25,28 @@
             <div class="col-md-4 col-6">
                 <h5 class="text-white mb-4">Quick Links</h5>
                 <a class="btn btn-link" href="{% url 'meetup_contact' %}">Contact Us</a>
-                <a class="btn btn-link" href="">Our Services</a>
-                <a class="btn btn-link" href="">Terms & Condition</a>
-                <a class="btn btn-link" href="">Support</a>
+                <a class="btn btn-link" href="{% url 'meetup_404' %}">Our Services</a>
+                <a class="btn btn-link" href="{% url 'meetup_404' %}">Terms & Condition</a>
+                <a class="btn btn-link" href="{% url 'meetup_404' %}">Support</a>
             </div>
             <div class="col-md-4">
                 <h4 class="text-white mb-4">Event Meetup</h4>
                 <a class="btn btn-link" href="{% url 'meetup-event' %}">Events</a>
                 <a class="btn btn-link" href="{% url 'upcoming_meetup' %}">Upcoming Meetup</a>
-                <a class="btn btn-link" href="">App</a>
-                <a class="btn btn-link" href="">Blog</a>
+                <a class="btn btn-link" href="{% url 'meetup_404' %}">App</a>
+                <a class="btn btn-link" href="{% url 'meetup_404' %}">Blog</a>
             </div>
         </div>
         <div class="text-white mb-4 my-4">
-            <h4 class="fs-6">Fellow Us</h4>
+            <h4 class="fs-6">Follow Us</h4>
             <div class="d-flex pt-3">
                 <a class="btn btn-square btn-light rounded-circle me-2" href="https://twitter.com/Cozy1712"><i
                         class="fab fa-twitter"></i></a>
-                <a class="btn btn-square btn-light rounded-circle me-2" href=""><i
+                <a class="btn btn-square btn-light rounded-circle me-2" href="https://www.facebook.com/cozycbjhghoydxhjjffiihghjkky?mibextid=b06tZ0"><i
                         class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-square btn-light rounded-circle me-2" href=""><i
-                        class="fab fa-youtube"></i></a>
-                <a class="btn btn-square btn-light rounded-circle me-2" href="https://www.linkedin.com/in/kabiru-kolawole"><i
+                <a class="btn btn-square btn-light rounded-circle me-2" href="https://instagram.com/kolaakangbe"><i
+                        class="fab fa-instagram"></i></a>
+                <a class="btn btn-square btn-light rounded-circle me-2" href="https://www.linkedin.com/in/kabiru-kolawole-667b46267"><i
                         class="fab fa-linkedin-in"></i></a>
             </div>    
         </div>
@@ -63,7 +63,7 @@
                 &copy; <a class="fw-normal text-light text-decoration-none" href="{% url 'meetup-index' %}">Event Meetup</a>, All Right Reserved.
             </div>
             <div class="col-md-6 text-center text-md-end">
-                Designed By <a class="fw-normal text-light text-decoration-none" href="">Cozy</a>
+                Designed By <a class="fw-normal text-light text-decoration-none" href="#">Cozy</a>
             </div>
         </div>
     </div>
